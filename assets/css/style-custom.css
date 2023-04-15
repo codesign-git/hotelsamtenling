@@ -37,3 +37,9 @@
 		display: block;
 	}
 }
+
+@media(min-width: 1000px){
+	.hs__rooms-grid .hs__room figure{
+		margin-bottom: 95px;
+	}
+}
