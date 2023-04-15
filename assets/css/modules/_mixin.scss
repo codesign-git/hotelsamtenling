@@ -1,0 +1,300 @@
+$allPrefix: ('webkit','apple','khtml','moz','rim','xv','ms','o');
+$norPrefix: ('webkit','moz','ms');
+@mixin prefix($property, $value, $prefixes: ()) {@each $prefix in $prefixes {#{'-' + $prefix + '-' + $property}: $value;} #{$property}: $value;}
+@mixin prefixAll($declarations, $prefixes: ()) {@each $property, $value in $declarations {@each $prefix in $prefixes {#{'-' + $prefix + '-' + $property}: $value;} #{$property}: $value;}}
+@mixin mbox-shadow($level) {
+    @if $level==0 { box-shadow: 0 0px 0px rgba(0, 0, 0, 0.12), 0 0px 0px rgba(0, 0, 0, 0.24); }
+    @else if $level==1 { box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); }
+    @else if $level==2 { box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); }
+    @else if $level==3 { box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23); }
+    @else if $level==4 { box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); }
+    @else if $level==5 { box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22); }
+}
+@mixin box-shadow($boxshadow...) {    
+    @include prefix(box-shadow, $boxshadow, $norPrefix);
+}
+@mixin filter($filter-type,$filter-amount) { 
+  -webkit-filter: $filter-type+unquote('(#{$filter-amount})');
+  -moz-filter: $filter-type+unquote('(#{$filter-amount})');
+  -ms-filter: $filter-type+unquote('(#{$filter-amount})');
+  -o-filter: $filter-type+unquote('(#{$filter-amount})');
+  filter: $filter-type+unquote('(#{$filter-amount})');
+}
+@mixin border-radius($radius) {@include prefix(border-radius, $radius, $norPrefix);}
+@mixin display($display, $width) {display: $display;width: $width;}
+@mixin float($float, $width) {float: $float;width: $width;}
+@mixin box-sizing($box) {@include prefix(box-sizing, $box, $norPrefix);}
+@mixin appearance($apper) {@include prefix(appearance, $apper, $norPrefix);}
+@mixin transition($transition...) {@include prefix(transition, $transition, $norPrefix);}
+@mixin transition-delay($transition-delay) {@include prefix(transition-delay, $transition-delay, $norPrefix);}
+@mixin transform-origin($v1, $v2) {@include prefix(transform-origin, $v1 $v2, $norPrefix);}
+@mixin transition-timing-function($tim) {@include prefix(transition-timing-function, $tim, $norPrefix);}
+@mixin transform($transform) {@include prefix(transform, $transform, $norPrefix);}
+@mixin transform-origin($origin) {@include prefix(transform-origin, $origin, $norPrefix);}
+@mixin flex(){display: -webkit-box; display: -ms-flexbox; display: flex;}
+@mixin iflex(){display: -webkit-inline-box;display: -ms-inline-flexbox;display: inline-flex;}
+@mixin flex-grow($grow){-webkit-box-flex: $grow;-ms-flex-positive: $grow;flex-grow: $grow;}
+@mixin flex-direction($dir) {@include prefix(flex-direction, $dir);}
+@mixin flex-wrap($wrap) {@include prefix(flex-wrap, $wrap);}
+@mixin justify-content($cont){-webkit-box-pack: $cont;-moz-box-pack: $cont;-webkit-justify-content: $cont;-ms-flex-pack: $cont;justify-content: $cont;}
+@mixin align-items($item){-webkit-box-align: $item;-moz-box-align: $item;-webkit-align-items: $item;-ms-flex-align: $item;align-items: $item;}
+@mixin align-content($cont) {@include prefix(align-content, $cont);}
+@mixin float($float, $width) {float: $float; width: $width;}
+
+
+@mixin grid($col, $gap){
+  min-width: 100%;
+  @if $col > 1{
+    margin: 0 -#{$gap};
+  }
+  @include clearfix();
+  
+  & > *{
+    @if $col > 1{
+      width: 100% / $col - ($gap * 2);
+      margin: $gap*2 $gap 0 $gap;
+    }
+    @else{
+      width: 100%;
+      margin-top: $gap*2;
+    }
+    float: left;
+    min-height: 1px;
+    list-style: none;
+    &:nth-child(-n+#{$col}){
+      margin-top: 0;
+    }
+  }
+  &.equal-height{
+    @include flex();
+  }
+}
+
+
+@mixin object($fit, $posi, $height:100%){width:100%; height:$height; -o-object-fit: $fit; object-fit: $fit; -o-object-position: $posi; object-position: $posi;}
+@mixin imgW(){-webkit-filter: brightness(0) invert(1); filter: brightness(0) invert(1);}
+@mixin imgB(){-webkit-filter: saturate(0%) grayscale(100%) brightness(69%) contrast(1000%);}
+@mixin imgG(){-webkit-filter: grayscale(100%); filter: grayscale(100%);}
+@mixin imgN(){ -webkit-filter: brightness(100%) invert(0); filter: brightness(100%) invert(0); }
+@mixin hcenter(){
+    @include flex();
+    @include justify-content(center);
+    @include align-items(center);
+    @include flex-direction(row);
+}
+
+@mixin vcenter(){
+  @include flex();
+  @include justify-content(center);
+  @include align-items(center);
+  @include flex-direction(column);
+}
+
+@mixin hcenteronly(){
+  @include flex();
+  @include justify-content(space-between);
+  @include align-items(center);
+  @include flex-direction(row);
+}
+
+@mixin flex-center($dir){
+  @include flex();
+  @include justify-content(center);
+  @include align-items(center);
+  @include flex-direction($dir);
+}
+
+@mixin equal-width($gap){
+  @include flex();
+  @include flex-wrap(wrap);
+  margin: 0 -$gap;
+  & > *{
+      flex-basis: 0;
+      flex-grow: 1;
+      flex-shrink: 1;
+      margin: 0 $gap;
+  }
+}
+
+@mixin user-select($us) {
+    -webkit-user-select: $us;
+    -moz-user-select: $us;
+    -ms-user-select: $us;
+    user-select: $us; 
+}
+
+@mixin clearfix() {
+  *zoom: 1;
+  clear: both;
+  &::after {
+    display: block;
+    content: "";
+    clear: both;
+  }
+}
+
+
+@mixin center($position) {
+  position: absolute;
+  
+  @if $position == 'Y' {
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+  @else if $position == 'X' {
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translate(-50%);
+  }
+  @else if $position == 'XY' {
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+}
+
+@function calculateRem($size) {
+  $remSize: $size / 16px;
+  @return $remSize * 1rem;
+}
+
+@mixin font-size($size) {
+  font-size: $size;
+  font-size: calculateRem($size);
+}
+
+@mixin input-placeholder {
+  &.placeholder { @content; }
+  &:-moz-placeholder { @content; }
+  &::-moz-placeholder { @content; }
+  &:-ms-input-placeholder { @content; }
+  &::-webkit-input-placeholder { @content; }
+}
+
+//Get the value for justify-content
+@function flex-jc($key){
+  @if map-has-key($justify, $key) {
+    @return map-get($justify, $key);
+  }
+  @warn "Unknown `#{$key}` in $justify.";
+  @return null;
+
+}
+$justify: (
+  'sa':space-around,
+  'sb':space-between,
+  'se':space-evenly,
+  'c':center,
+  'fs':flex-start,
+  'fe':flex-end
+);
+
+
+//Get the value for align-items
+@function flex-ai($key){
+  @if map-has-key($align, $key) {
+    @return map-get($align, $key);
+  }
+  @warn "Unknown `#{$key}` in $align.";
+  @return null;
+
+}
+
+$align: (
+  'b':baseline,
+  's':stretch,
+  'c':center,
+  'fs':flex-start,
+  'fe':flex-end
+);
+  
+
+//Get the value for direction
+@function flex-dir($key){
+  @if map-has-key($direction, $key) {
+    @return map-get($direction, $key);
+  }
+  @warn "Unknown `#{$key}` in $direction.";
+  @return null;
+}
+
+$direction: (
+  'r':row,
+  'rr':row-reverse,
+  'c':column,
+  'cr':column-reverse,
+);
+
+
+@mixin i-flex($dir:row, $jc:fs, $ai:js, $wrap: '') {
+  @include iflex();
+  @if ($dir != '') {
+    @include flex-direction(flex-dir($dir));
+  }
+
+  @if ($jc != '') {
+    @include justify-content(flex-jc($jc));
+  }
+
+  @if ($ai != '') {
+    @include align-items(flex-ai($ai));
+  }
+
+  @if ($wrap != '') {
+    @include flex-wrap($wrap);
+  }
+}
+
+
+@mixin d-flex($dir:row, $jc:fs, $ai:js, $wrap: '') {
+  @include flex();
+  @if ($dir != '') {
+    @include flex-direction(flex-dir($dir));
+  }
+
+  @if ($jc != '') {
+    @include justify-content(flex-jc($jc));
+  }
+
+  @if ($ai != '') {
+    @include align-items(flex-ai($ai));
+  }
+
+  @if ($wrap != '') {
+    @include flex-wrap($wrap);
+  }
+}
+
+
+@mixin typo($min-fs, $max-fs, $max-vp:1440){
+  font-size: calc(#{$min-fs+'px'} + (#{$max-fs} - #{$min-fs}) * (100vw - 320px) / (#{$max-vp} - 320));
+  font-size: clamp(#{$min-fs+'px'}, #{((100 * $max-fs) / $max-vp)+'vw'}, #{$max-fs + 'px'});
+}
+// font-size: calc([minimum size] + ([maximum size] - [minimum size]) * ((100vw - [minimum viewport width]) / ([maximum viewport width] - [minimum viewport width])));
+// line-height: calc(1.3em + (1.5 - 1.3) * ((100vw - 21em)/(35 - 21)));
+
+// shadow
+@mixin lshadow(){
+  box-shadow: 0 0.1rem 1rem rgba(0,0,0,0.05);
+}
+
+
+@mixin d-grid($grid-type, $args, $row-gap: 0, $column-gap: $row-gap) {
+  @supports (display: grid) {
+    display: grid;
+    @if($grid-type == 'r'){
+      grid-template-rows:  $args;
+    }
+    @if($grid-type == 'c'){
+      grid-template-columns:  $args;
+    }
+    @if($row-gap > 0){
+      grid-gap: $row-gap $column-gap;  
+    }
+  }
+}

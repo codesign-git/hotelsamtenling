@@ -1,0 +1,266 @@
+// BUTTON STYLE
+*[class*=btn-]{
+    @include transition(0.5s); 
+    &:hover{@include transition(0.5s);}
+}
+
+.btns-container{
+    .btn:not(:first-child){margin-left:15px;}
+}
+
+// .container{
+//     .btns-container{
+//         width:calc(100% + 50px) !important;
+//         left: -25px !important;
+//     }
+// } 
+
+*[class*=cell-]{
+    .btns-container{
+        width:calc(100% + 50px) !important;
+        left: -25px !important;
+    }
+} 
+
+.btn, .link{
+    display: inline-block;
+    white-space: nowrap;
+    text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    @include transition(0.3s);
+}
+
+.btn{
+    padding: 0.65em 1.1em;
+    border:1px solid transparent;
+    @each $colorName, $colorValue in $allColors{
+        &.btn-#{$colorName}{
+            @extend .bg-#{$colorName};
+            @extend .c-#{$colorName};
+            // border-color: $colorValue;
+            &.outline, &.outlineB{
+                border-color: $colorValue;
+                &:hover{
+                    @extend .bg-#{$colorName};
+                    border-color: $colorValue;
+                }
+            }
+            &.outline{
+                &:hover{
+                    color: color(white);
+                }
+            }
+            &.outlineB{
+                &:hover{
+                    color: color(black);
+                }
+            }
+        }
+    }
+    &.outline, &.outlineB{
+        background-color: transparent;
+    }
+    &.solid{
+        color: color(white);
+    }
+    &.solidB{  
+        color: color(black);
+    }
+    @include box-shadow(0px 0px 0px 0px transparent);
+
+    &:hover,
+    &:focus{
+        @include box-shadow(0 14px 28px transparent, 0 10px 10px rgba(0,0,0,.18));
+    }
+    &.rounded{
+        @include border-radius(0.3em);
+    }
+    &.small{
+        font-size: 16px;
+        padding: 0.5em 1.1em;
+    }
+    &.xl{
+        @include typo(16, 20);  
+        padding: 0.6em 2em;
+    }
+    &.btn-arw{
+        span{
+            top: -2px;
+        }
+    }
+    @media(max-width: 760px){
+        @include fw(sb);
+        font-size: 12px;
+        border: 1px solid currentColor;
+        &.xl{
+            width: 100%;
+        }
+    }
+}
+
+.link{
+    padding-bottom: 0.1em;
+    position: relative;
+    font-size: inherit;
+    background-color: transparent;
+    &::before{
+        content: '';
+        display: inline-block;
+        width: 0%;
+        height: 1px;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        border-bottom: 1px solid currentColor;
+        @include transition(0.5s);
+    }
+    &:hover{
+        &::before{
+            width: 100%;
+            right: auto;
+            left: 0;
+        }
+    }
+
+    @each $colorName, $colorValue in $allColors{
+        &.link-#{$colorName}{
+            @extend .c-#{$colorName};
+            &::before{
+                @extend .bg-#{$colorName};
+            }
+        }
+    }
+}
+
+.btn_long-arw{
+    width: 400px;
+    position: relative;
+    padding-right: 20px;
+    text-align: right;
+    color: color(blu);
+    font-size: 17px;
+    @include fw(m);
+    @include transition(200ms);
+    span{
+        padding: 8px 15px;
+        background-color: color(white);
+        position: relative;
+        z-index: 1;
+        @include transition(inherit);
+        &::before{
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            z-index: -1;
+            background-color: color(blu);
+            @include transition(inherit);
+        }
+    }
+    &::before,
+    &::after{
+        content: '';
+        @include center(Y);
+        @include transition(inherit);
+    }
+    &::before{
+        width: 100%;
+        height: 2px;
+        left: 0;
+        background-color: color(blu);
+    }
+    &::after{
+        width: 26px;
+        height: 26px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        background-image: url('./../img/icons/right-arrow.svg');
+    }
+    &:hover{
+        &::after{
+            @include imgW();
+            z-index: 111;
+        }
+        span{
+            // letter-spacing: -0.8px;
+            color: color(white);
+            @include transition(inherit);
+            &::before{
+                width: calc(100% + 30px);
+                @include transition(inherit);
+            }
+        }
+    }
+    @media(max-width: 760px){
+        font-size: 12px;
+        @include fw(sb);
+        border: 1px solid currentColor;
+        span{
+            padding: 8px 13px;
+        }
+        &::before{
+            display: none;
+        }
+        &::after{
+            width: 16px;
+            height: 16px;
+        }
+    }
+}
+
+.btn-grp{
+    width: 100%;
+    float: left;
+    flex: 0 0 100%;
+    @include d-flex(r, sb, c);
+    margin-top: 80px;
+    .btn_long-arw{
+      width: 350px;
+      &:only-child{
+        margin-left: auto;
+      }
+    }
+    @media(max-width: 999px){
+      margin-top: 40px;
+    }
+    @media(max-width: 760px){
+        margin-top: 30px;
+        .btn_long-arw{
+            width: auto;
+            &:only-child{
+                width: 100%;
+                text-align: center;
+            }
+        }
+    }
+    @media(max-width: 760px) and (min-width: 600px){
+        @include justify-content(center);
+        .btn_long-arw{
+            &:not(:only-child){
+                margin: 0 5px;
+            }
+        }
+    }
+    @media(max-width: 350px){
+        display: block;
+        .btn_long-arw{
+            width: 100%;
+            text-align: left;
+            span{
+                width: 100%;
+            }
+            &:only-child{
+                text-align: left;
+            }
+            & + *{
+                margin-top: 10px;
+            }
+        }
+    }
+  }
