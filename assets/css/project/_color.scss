@@ -102,14 +102,13 @@ $allColors:(
     // telegram: #0088cc,
     // clarity: #61bed9  
 
-    transparent: transparent !important,
 );
 
 @each $colorName, $colorValue in $allColors{
-  &.bg-#{$colorName}{
+  .bg-#{$colorName}.bg-#{$colorName}.bg-#{$colorName}{
       background-color: $colorValue;
   }
-  &.c-#{$colorName}{
+  .c-#{$colorName}.c-#{$colorName}.c-#{$colorName}{
     color: $colorValue;
   }
 }

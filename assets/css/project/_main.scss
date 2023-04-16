@@ -387,7 +387,7 @@ nav{
     @media(min-width: 761px){
       @include d-flex(r, sb, c);
     }
-    summary{
+    address{
       @include i-flex(r, fs, c);
       span{
         width: 65px;
@@ -422,7 +422,7 @@ nav{
   @media(max-width: 999px){
     padding: 35px 0;
     .footer-contact{
-      summary{
+      address{
         span{
           width: 55px !important;
           margin-right: 15px;
@@ -446,7 +446,7 @@ nav{
     }
     .footer-contact{
       margin-top: 0;
-      summary{
+      address{
         width: 100%;
         margin-top: 30px;
         p{
@@ -888,6 +888,14 @@ nav{
     width: 550px;
   }
 
+  .swiper-wrapper{
+    align-items: stretch;
+  }
+
+  .swiper-slide{
+    height: auto !important;
+  }
+
   .testimoni-box{ 
     padding: 7em 5em 4em 6em;
     font-style: italic;
@@ -928,7 +936,7 @@ nav{
   }
 
 
-  summary{
+  .swiper-testimoni--nav{
     flex: 1;
     position: relative;
     .swiper-pagination-bullet{
@@ -1030,7 +1038,7 @@ nav{
     .testimoni-box{ 
       padding: 5em 2em 2em 3em;
     }
-    summary{
+    .swiper-testimoni--nav{
       .swiper-arw{
         width: auto;
       }
@@ -1205,39 +1213,34 @@ nav{
 .hs__rooms-grid{
   .hs__room{
     width: 80.65%;
-    position: relative;
     background-color: color(white); 
     box-shadow: 0px 0px 24px rgba(8, 35, 48, 0.1);
     padding: 40px;
-    margin-top: 35px;
+    position: relative;
+    z-index: 1;
     margin-bottom: 35px;
-    & > *{
-      position: relative;
-      z-index: 1;
-    }
+    display: grid;
+    grid-gap: 1rem;
+    gap: 1rem;
+    grid-template-columns: 1fr 1.25fr;
+    align-items: end;
     .--room-name{
       font-family: var(--ff-s);
       @include typo(28, 40);
+      margin-bottom: 0.5em;
       color: color(blu2);
-      display: inline-block;
-      position: absolute;
-      top: 40px;
-      width: 38%;
     }
 
     figure{
-      width: 52%;
       border: 6px solid color(white);
       @include border-radius(10px);
-      margin-bottom: 60px;
       box-shadow: 0px 0px 15px 5px rgba(0, 23, 93, 0.04);
       img{
         @include border-radius(5px);
       }
     }
 
-    summary{
-      width: 42%;
+    .hs__room--summary{
       .--price-box{
         @include d-flex(r, fs, fs);
         &:not(:last-child){
@@ -1277,103 +1280,135 @@ nav{
 
     &:nth-child(even){
       float: left;
-      @include d-flex(r, sb, fe, wrap);
+      // @include d-flex(r, sb, fe, wrap);
+      // .--room-name{
+      //   right: 40px;
+      // }
+      // .btn_long-arw{
+      //   left: 45px;
+      // }
       .--room-name{
-        right: 40px;
+        grid-column: 1;
+        grid-row: 1;
       }
-      .btn_long-arw{
-        left: 45px;
+
+      figure{
+        grid-row: span 2;
       }
     }
     &:nth-child(odd){
       float: right;
-      @include d-flex(rr, sb, fe, wrap);
       .--room-name{
-        left: 40px;
+        grid-column: 1;
+        grid-row: 1;
       }
-      .btn_long-arw{
-        right: 45px;
+      .hs__room--summary{
+        grid-column: 1;
+        grid-row: 2;
       }
+      figure{
+        grid-column: 2;
+        grid-row: span 2;
+      }
+      // @include d-flex(rr, sb, fe, wrap);
+      // .--room-name{
+      //   left: 40px;
+      // }
+      // .btn_long-arw{
+      //   right: 45px;
+      // }
     }
 
     @media(max-width: 1100px){
-      figure{
-        margin-bottom: 50px;
-      }
-      summary{
+      .hs__room--summary{
         span{
           width: 45px;
           height: 45px;
           flex: 0 0 45px;
         }
-        .--price-box:not(:last-child){
-          margin-bottom: 20px;
-        }
+        // .--price-box:not(:last-child){
+        //   margin-bottom: 20px;
+        // }
       }
-      .btn_long-arw{
-        width: 45%;    
-      }
+      // .btn_long-arw{
+      //   width: 45%;    
+      // }
     }
 
     @media(max-width: 999px){
       width: 100%;
       padding: 30px;
-      margin-top: 0;
-      &:nth-child(even),
-      &:nth-child(odd){
-        @include align-items(flex-start);
-      }
-      &:nth-child(even){
-        .btn_long-arw{
-          left: auto;
-        }
-      }
-      &:nth-child(odd){
-        .btn_long-arw{
-          right: auto;
-        }
-      }
-      figure{
-        margin-bottom: 0;
-      }
-      summary{
-        width: 45%;
-      }
-      .--room-name{
-        width: 100%;
-        position: static;
-        margin-bottom: 25px;
-      }
-      .btn_long-arw{
-        width: 51%;
-        position: relative;
-        bottom: auto;
-        right: auto;
-        margin-top: 25px;
-      }
+      // margin-top: 0;
+      // &:nth-child(even),
+      // &:nth-child(odd){
+      //   @include align-items(flex-start);
+      // }
+      // &:nth-child(even){
+      //   .btn_long-arw{
+      //     left: auto;
+      //   }
+      // }
+      // &:nth-child(odd){
+      //   .btn_long-arw{
+      //     right: auto;
+      //   }
+      // }
+      // figure{
+      //   margin-bottom: 0;
+      // }
+      // .hs__room--summary{
+      //   width: 45%;
+      // }
+      // .--room-name{
+      //   width: 100%;
+      //   position: static;
+      //   margin-bottom: 25px;
+      // }
+      // .btn_long-arw{
+      //   width: 51%;
+      //   position: relative;
+      //   bottom: auto;
+      //   right: auto;
+      //   margin-top: 25px;
+      // }
     }
     @media(max-width: 575px){
       padding: 20px;
-      &:nth-child(even),
-      &:nth-child(odd){
-        display: block;
-      }
-      &:last-child{
+      grid-template-columns: 1fr;
+      .--room-name{
         margin-bottom: 0;
       }
-      figure,
-      summary{
-        width: 100%;
+      &:nth-child(even),
+      &:nth-child(odd){
+        .--room-name,
+        .hs__room--summary,
+        figure{
+          grid-column: auto;
+          grid-row: auto;
+        }
       }
 
-      summary{
-        padding: 0 6px;
-        margin-top: 30px;
-      }
-      .btn_long-arw{
-        width: 100%;
-        text-align: center;
-      }
+
+      // &:nth-child(even),
+      // &:nth-child(odd){
+      //   display: block;
+      // }
+      // &:last-child{
+      //   margin-bottom: 0;
+      // }
+      // figure,
+      // summary{
+      //   width: 100%;
+      // }
+
+      // summary{
+      //   padding: 0 6px;
+      //   margin-top: 30px;
+      // }
+      // .btn_long-arw{
+      //   width: 100%;
+      //   text-align: center;
+      // }
     }
   }
 }
@@ -1778,7 +1813,7 @@ nav{
   .--way-of-contacts{
     @include d-flex(c, sb, fs);
    
-    summary{
+    address{
       @include i-flex(r, fs, c);
       
       & > span{
@@ -1828,7 +1863,7 @@ nav{
     }
     
     .--way-of-contacts{
-      summary{
+      address{
         & > span{
           width: 45px;
           margin-right: 15px;
@@ -1848,6 +1883,7 @@ nav{
 }
 
 
+
 // ABOUT
 .hs__about{
   .main-container{
@@ -1859,7 +1895,7 @@ nav{
     position: relative;
   }
   .--title{
-    @include typo(35, 100);
+    @include typo(35, 80);
     line-height: 1;
     color: color(blu);
     span{
@@ -1867,63 +1903,54 @@ nav{
       display: block;
     }
     position: absolute;
-    right: 10%;
+    left: 33.3%;
     bottom: 54%;
     z-index: 111;
   }
   figure{
-    padding-bottom: 7%;
-    position: relative;
-    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    gap: 10px;
+    align-items: end;
     span{
       box-shadow: 0px 0px 49px 0px rgba(0, 23, 93, 0.11); 
       border: 8px solid color(white);
-    }
-    .fig-building{
-      max-width: 450px;
-    }
-    .fig-reception{
-      width: 66%;
-      position: absolute;
-      right: 0;
-      bottom: 0;
-      z-index: -1;
     }
   }
   article{
     margin-top: 50px;
   }
-  @media(max-width: 800px){
-    figure{
-      .fig-building{
-        max-width: 420px;
-      }
-      .fig-reception{
-        width: 60%;
-      }
-    }
-  }
+
 
   @media(max-width: 760px){
-    .--title{
-      right: 5%;
-    }
     figure{
-      padding-bottom: 10%;
       span{
         border: 3px solid color(white);
-      }
-      .fig-building{
-        max-width: 58%;
-      }
-      .fig-reception{
-        width: 80%;
       }
     }
     article{
       margin-top: 30px;
     }
   }
+
+
+  @media(max-width: 560px){
+    .--title{
+      display: none;
+    }
+    figure{
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .b2{
+      grid-column: 2;
+    }
+    .fig-reception{
+      grid-row: 2;
+      grid-column: 1/-1;
+    }
+  }
+  
 }
 
 .hs__about--offer{
@@ -2019,4 +2046,14 @@ nav{
       }
     }
   }
+}
+
+
+.btn-whatsapp{
+	background-color: #00E676;
+	color: #fff;
+}
+
+.btn-whatsapp img{
+	width: 1.5em;
 }

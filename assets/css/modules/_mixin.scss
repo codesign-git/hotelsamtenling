@@ -104,17 +104,7 @@ $norPrefix: ('webkit','moz','ms');
   @include flex-direction($dir);
 }
 
-@mixin equal-width($gap){
-  @include flex();
-  @include flex-wrap(wrap);
-  margin: 0 -$gap;
-  & > *{
-      flex-basis: 0;
-      flex-grow: 1;
-      flex-shrink: 1;
-      margin: 0 $gap;
-  }
-}
+
 
 @mixin user-select($us) {
     -webkit-user-select: $us;
