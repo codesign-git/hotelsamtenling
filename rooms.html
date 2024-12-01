@@ -311,6 +311,10 @@ Location: Skk Home, Howrah  -->
                             </div>
                         </div>
                     </div>
+
+                    <figure class="hs_promoional">
+                        <a class="d-block" href="tel:+918777591955"> <img class="d-block w-100" src="assets/img/promotional.svg" alt="Hotel Samteling promotional banner" alt="Hotel Samteling promotional"/></a>
+                    </figure>
                 </div>
             </div>
         </section>
@@ -378,6 +382,34 @@ Location: Skk Home, Howrah  -->
             </div>
         </div>
     </section>
+
+    <style>
+        @media(min-width: 575px){
+            .hs_promoional{
+                width: 13rem;
+                position: fixed;
+                bottom: 2rem;
+                right: 2rem;
+                z-index: 1;
+                transform-origin: bottom right;
+                transform: scale(0);
+                opacity: 0;
+                animation: appearAnim 1s ease-in-out forwards 0.5s;
+            }
+
+            @keyframes appearAnim {
+                0%{
+                    opacity: 0;
+                    transform: scale(0);
+                }
+                100%{
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+
+        }
+    </style>
 
 
     <script src="assets/js/jquery.js"></script>
