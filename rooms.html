@@ -392,19 +392,19 @@ Location: Skk Home, Howrah  -->
                 right: 2rem;
                 z-index: 1;
                 transform-origin: bottom right;
-                transform: scale(0);
+                transform: translateY(25px);
                 opacity: 0;
-                animation: appearAnim 1s ease-in-out forwards 0.5s;
+                animation: appearAnim 0.5s ease-in-out forwards 0.5s;
             }
 
             @keyframes appearAnim {
                 0%{
+                    transform: translateY(25px);
                     opacity: 0;
-                    transform: scale(0);
                 }
                 100%{
+                    transform: translateY(0);
                     opacity: 1;
-                    transform: scale(1);
                 }
             }
 
